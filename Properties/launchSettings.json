@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "autoMakeromCLI": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\TimmSkiller\\Desktop\\fails\" \"C:\\Users\\TimmSkiller\\Personal Documents\\Stuff\\3DS Tools\\keysa.txt\""
+    }
+  }
+}
