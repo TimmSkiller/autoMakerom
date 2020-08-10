@@ -56,13 +56,15 @@ namespace autoMakeromCLI
             if (Environment.OSVersion.Platform == PlatformID.Win32NT)
             {
                 ninfs.StartInfo.FileName = $"{Environment.CurrentDirectory}/tools/ninfs.exe";
+                ninfs.StartInfo.Arguments = $"cdn -f \"{path}\" \"{mountPoint}\" --dec-key {decKey}";
             }
             else
             {
                 ninfs.StartInfo.FileName = "mount_cdn";
+                ninfs.StartInfo.Arguments = $"-f \"{path}\" \"{mountPoint}\" --dec-key {decKey}";
             }
 
-            ninfs.StartInfo.Arguments = $"cdn -f \"{path}\" \"{mountPoint}\" --dec-key {decKey}";
+            
 
             ninfs.Start();
 
@@ -87,19 +89,19 @@ namespace autoMakeromCLI
             }
             catch (Exception)
             {
-                Directory.CreateDirectory($"{Environment.CurrentDirectory}\\failed_mounts\\nokey");
-                File.Create($"{Environment.CurrentDirectory}\\failed_mounts\\nokey\\{Directory.GetParent(path).Name.ToUpper()}").Close();
+                Directory.CreateDirectory($"{Environment.CurrentDirectory}/failed_mounts/nokey");
+                File.Create($"{Environment.CurrentDirectory}/failed_mounts/nokey/{Directory.GetParent(path).Name.ToUpper()}").Close();
                 throw new ArgumentException($"The provided titlekey for current title {Directory.GetParent(path).Name.ToUpper()} is invalid.");
             }
 
             c.ContentDirectories = Directory.GetDirectories(mountPoint);
 
-            string tmdPath = $"{mountPoint}\\tmd.bin";
-            string NcchPath = $"{firstContentDir}\\ncch.bin";
+            string tmdPath = $"{mountPoint}/tmd.bin";
+            string NcchPath = $"{firstContentDir}/ncch.bin";
             string IconPath = $"{firstContentDir}/exefs/icon.bin";
 
             //dsiware only
-            string bannerPath = $"{firstContentDir}\\banner.bin";
+            string bannerPath = $"{firstContentDir}/banner.bin";
 
             c.TitleId = $"{Tools.ReadHexUTF8(tmdPath, 0x18C, 0x194, false).Replace('\x00', ' ').Trim()}";
             if (c.TitleId.StartsWith("00048"))

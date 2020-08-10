@@ -119,6 +119,12 @@ namespace autoMakeromCLI
             {
                 prs.Kill();
             }
+
+            Process pr = new Process();
+            pr.StartInfo.FileName = "fusermount";
+            pr.StartInfo.Arguments = "-u ninfs_temp";
+            pr.Start();
+            pr.WaitForExit();
         }
 
         public static string Reverse(string s)

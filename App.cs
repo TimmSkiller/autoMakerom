@@ -30,13 +30,13 @@ namespace autoMakeromCLI
                 try
                 {
                     currentKey = decKeys.Find(c => c.TitleId.ToUpper() == Path.GetFileName(dir).ToUpper());
-                    currentContent = Content.ReadContent($"{dir}\\tmd", currentKey.DecKey);
+                    currentContent = Content.ReadContent($"{dir}/tmd", currentKey.DecKey);
                     Makerom.Run(currentContent);
                 }
                 catch (NullReferenceException)
                 {
-                    Directory.CreateDirectory($"{Environment.CurrentDirectory}\\failed_mounts\\nokey");
-                    File.Create($"{Environment.CurrentDirectory}\\failed_mounts\\nokey\\{Path.GetFileName(dir).ToUpper()}").Close();
+                    Directory.CreateDirectory($"{Environment.CurrentDirectory}/failed_mounts/nokey");
+                    File.Create($"{Environment.CurrentDirectory}/failed_mounts/nokey/{Path.GetFileName(dir).ToUpper()}").Close();
                     Console.WriteLine($"Titlekey was not found for title {Path.GetFileName(dir).ToUpper()}");
                     continue;
                 }

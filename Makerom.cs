@@ -23,11 +23,11 @@ namespace autoMakeromCLI
                 if (r.IsMatch(content.FullFileName))
                 {
                     tempCiaName = "tempName.cia";
-                    makerom.StartInfo.Arguments = $"-f cia -o \"{tempCiaName}\" -srl \"{Directory.GetFiles($"{Environment.CurrentDirectory}\\ninfs_temp", "*.nds")[0]}\"";
+                    makerom.StartInfo.Arguments = $"-f cia -o \"{tempCiaName}\" -srl \"{Directory.GetFiles($"{Environment.CurrentDirectory}/ninfs_temp", "*.nds")[0]}\"";
                 }
                 else
                 {
-                    makerom.StartInfo.Arguments = $"-f cia -o \"{content.FullFileName}\" -srl \"{Directory.GetFiles($"{Environment.CurrentDirectory}\\ninfs_temp", "*.nds")[0]}\"";
+                    makerom.StartInfo.Arguments = $"-f cia -o \"{content.FullFileName}\" -srl \"{Directory.GetFiles($"{Environment.CurrentDirectory}/ninfs_temp", "*.nds")[0]}\"";
                 }
 
                 makerom.Start();
@@ -68,14 +68,14 @@ namespace autoMakeromCLI
             if (File.Exists($"{Environment.CurrentDirectory}/{content.FullFileName}"))
             {
                 Console.WriteLine($"Successfully built {content.FullFileName}!");
-                Directory.CreateDirectory($"{Environment.CurrentDirectory}\\success_builds");
-                File.Move($"{Environment.CurrentDirectory}/{content.FullFileName}", $"{Environment.CurrentDirectory}\\success_builds\\{content.FullFileName}");
+                Directory.CreateDirectory($"{Environment.CurrentDirectory}/success_builds");
+                File.Move($"{Environment.CurrentDirectory}/{content.FullFileName}", $"{Environment.CurrentDirectory}/success_builds/{content.FullFileName}");
             }
             else
             {
                 Console.WriteLine($"An error occured when makerom was ran to build {content.TitleId}. The CIA was not built.");
-                Directory.CreateDirectory($"{Environment.CurrentDirectory}\\failed_mounts\\failed_makerom_build");
-                File.Create($"{Environment.CurrentDirectory}\\failed_mounts\\failed_makerom_build\\{content.TitleId.ToUpper()}").Close();
+                Directory.CreateDirectory($"{Environment.CurrentDirectory}/failed_mounts/failed_makerom_build");
+                File.Create($"{Environment.CurrentDirectory}/failed_mounts/failed_makerom_build/{content.TitleId.ToUpper()}").Close();
             }
 
             Tools.KillNinfs();
