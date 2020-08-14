@@ -9,7 +9,7 @@ namespace autoMakeromCLI
     {
         private static void Main(string[] cliArgs)
         {
-            Console.WriteLine("autoMakerom 1.0 - Made by TimmSkiller || Credit goes to ihaveamac for ninfs, and the contributors to Project_CTR for makerom.");
+            Console.WriteLine("autoMakerom 1.1 - Made by TimmSkiller || Credit goes to ihaveamac for ninfs, and the contributors to Project_CTR for makerom.");
 
             if (cliArgs.Length < 2 || !File.Exists(cliArgs[1]) || !Directory.Exists(cliArgs[0]))
             {
