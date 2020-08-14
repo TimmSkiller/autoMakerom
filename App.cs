@@ -31,7 +31,12 @@ namespace autoMakeromCLI
                 {
                     currentKey = decKeys.Find(c => c.TitleId.ToUpper() == Path.GetFileName(dir).ToUpper());
                     currentContent = Content.ReadContent($"{dir}/tmd", currentKey.DecKey);
-                    Makerom.Run(currentContent);
+                    Makerom.Run(currentContent, out bool successfulBuild);
+
+                    if (successfulBuild) 
+                    {
+                        Directory.Delete(dir, true);
+                    }
                 }
                 catch (NullReferenceException)
                 {

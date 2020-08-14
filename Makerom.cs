@@ -7,7 +7,7 @@ namespace autoMakeromCLI
 {
     public static class Makerom
     {
-        public static void Run(Content content)
+        public static void Run(Content content, out bool successfulBuild)
         {
             Process makerom = new Process();
             Regex r = new Regex("[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f]");
@@ -70,12 +70,14 @@ namespace autoMakeromCLI
                 Console.WriteLine($"Successfully built {content.FullFileName}!");
                 Directory.CreateDirectory($"{Environment.CurrentDirectory}/success_builds");
                 File.Move($"{Environment.CurrentDirectory}/{content.FullFileName}", $"{Environment.CurrentDirectory}/success_builds/{content.FullFileName}");
+                successfulBuild = true;
             }
             else
             {
                 Console.WriteLine($"An error occured when makerom was ran to build {content.TitleId}. The CIA was not built.");
                 Directory.CreateDirectory($"{Environment.CurrentDirectory}/failed_mounts/failed_makerom_build");
                 File.Create($"{Environment.CurrentDirectory}/failed_mounts/failed_makerom_build/{content.TitleId.ToUpper()}").Close();
+                successfulBuild = false;
             }
 
             Tools.KillNinfs();
